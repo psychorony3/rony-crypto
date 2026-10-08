@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rony Crypto — Crypto • Web3 • Airdrops</title>
+
+<style>
+:root{
+  --bg:#070a0f;
+  --panel:#0d131c;
+  --line:#1b2634;
+  --text:#f4f7fb;
+  --muted:#8e9bad;
+  --green:#59e6a3;
+  --blue:#6ea8ff;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:radial-gradient(
+    circle at 80% -10%,
+    #14281f 0,
+    #070a0f 35%
+  );
+  color:var(--text);
+  font-family:Inter,system-ui,Arial,sans-serif;
+  line-height:1.5;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.wrap{
+  width:min(1140px,92%);
+  margin:auto;
+}
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#070a0fcc;
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-.7px;
+}
+
+.brand b{
+  color:var(--green);
+}
+
+nav{
+  display:flex;
+  gap:26px;
+  color:#aeb8c8;
+  font-size:14px;
+}
+
+nav a:hover{
+  color:#fff;
+}
+
+.menu{
+  display:none;
+}
+
+/* HERO */
+
+.hero{
+  padding:90px 0 65px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:40px;
+  align-items:center;
+}
+
+.pill{
+  display:inline-block;
+  border:1px solid #264133;
+  background:#0c1813;
+  color:#79efb1;
+  border-radius:999px;
+  padding:7px 12px;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:clamp(45px,7vw,76px);
+  line-height:.99;
+  letter-spacing:-4px;
+}
+
+.green{
+  color:var(--green);
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:650px;
+  font-size:17px;
+  margin:22px 0 28px;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  background:var(--green);
+  color:#06100a;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:800;
+  font-size:14px;
+}
+
+.btn.alt{
+  background:#111925;
+  color:#fff;
+  border:1px solid var(--line);
+}
+
+/* PROFILE */
+
+.profile{
+  background:linear-gradient(
+    145deg,
+    #101b18,
+    #0d131c
+  );
+  border:1px solid #244034;
+  border-radius:22px;
+  padding:28px;
+}
+
+.avatar{
+  width:76px;
+  height:76px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(
+    135deg,
+    #59e6a3,
+    #6ea8ff
+  );
+  color:#06100a;
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.profile h2{
+  font-size:25px;
+}
+
+.profile p{
+  color:var(--muted);
+  font-size:14px;
+  margin:7px 0 20px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.stat{
+  background:#09100f;
+  border:1px solid #1e3028;
+  border-radius:12px;
+  padding:12px;
+}
+
+.stat strong{
+  display:block;
+  font-size:19px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* SECTIONS */
+
+section{
+  padding:48px 0;
+}
+
+.head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:20px;
+}
+
+.head h2{
+  font-size:28px;
+}
+
+.head p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* MARKET */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:19px;
+}
+
+.coin{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+}
+
+.coin-icon{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#182230;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.price{
+  font-size:23px;
+  font-weight:900;
+  margin-top:18px;
+}
+
+.up{
+  color:var(--green);
+  font-size:12px;
+}
+
+.down{
+  color:#ff7d8d;
+  font-size:12px;
+}
+
+.symbol{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* AIRDROPS */
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.item h3{
+  margin:9px 0 5px;
+  font-size:18px;
+}
+
+.item p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.tag{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--green);
+  font-weight:900;
+}
+
+/* NEWS */
+
+.news{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:14px;
+}
+
+.feature{
+  min-height:215px;
+  background:linear-gradient(
+    140deg,
+    #101d19,
+    #0d131c
+  );
+  border:1px solid #24392f;
+}
+
+.feature h3{
+  font-size:25px;
+  max-width:650px;
+  margin:10px 0;
+}
+
+/* ABOUT */
+
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.about p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.safe{
+  border-color:#244034;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:30px 0;
+  color:#778396;
+  font-size:13px;
+}
+
+.foot{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.social{
+  color:var(--green);
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+  nav{
+    display:none;
+  }
+
+  .menu{
+    display:block;
+    color:#aeb8c8;
+  }
+
+  .hero-grid,
+  .news,
+  .about{
+    grid-template-columns:1fr;
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid3{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:520px){
+
+  .hero{
+    padding-top:60px;
+  }
+
+  .cards,
+  .grid3{
+    grid-template-columns:1fr 1fr;
+  }
+
+  h1{
+    letter-spacing:-2.5px;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .price{
+    font-size:20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="wrap nav">
+
+    <a class="brand" href="#">
+      Rony <b>Crypto</b>
+    </a>
+
+    <nav>
+      <a href="#market">Market</a>
+      <a href="#airdrops">Airdrops</a>
+      <a href="#news">News</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="menu">☰</div>
+
+  </div>
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="wrap hero-grid">
+
+<div>
+
+<span class="pill">
+CRYPTO • WEB3 • AIRDROPS
+</span>
+
+<h1>
+Learn. Discover.<br>
+<span class="green">
+Earn in Web3.
+</span>
+</h1>
+
+<p>
+Welcome to Rony Crypto — a simple place for crypto market
+updates, Web3 projects, airdrops and useful opportunities.
+</p>
+
+<div class="actions">
+
+<a class="btn" href="#market">
+Explore Market
+</a>
+
+<a
+class="btn alt"
+href="https://x.com/Rony_201000"
+target="_blank">
+Follow on X ↗
+</a>
+
+</div>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div class="profile">
+
+<div class="avatar">
+RC
+</div>
+
+<h2>
+Rony Crypto
+</h2>
+
+<p>
+Crypto & Web3 Creator • Bangladesh
+</p>
+
+<div class="stats">
+
+<div class="stat">
+<strong>Web3</strong>
+<span>Focus</span>
+</div>
+
+<div class="stat">
+<strong>Daily</strong>
+<span>Updates</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MARKET -->
+
+<section id="market">
+
+<div class="wrap">
+
+<div class="head">
+
+<div>
+
+<h2>
+Market
+</h2>
+
+<p>
+Demo prices — connect a market API for live data.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="cards">
+
+
+<!-- BTC -->
+
+<div class="card">
+
+<div class="row">
+
+<div class="coin">
+
+<div class="coin-icon">
+₿
+</div>
+
+Bitcoin
+
+</div>
+
+<span class="up">
++2.41%
+</span>
+
+</div>
+
+<div class="price">
+$67,842
+</div>
+
+<span class="symbol">
+BTC
+</span>
+
+</div>
+
+
+<!-- ETH -->
+
+<div class="card">
+
+<div class="row">
+
+<div class="coin">
+
+<div class="coin-icon">
+Ξ
+</div>
+
+Ethereum
+
+</div>
+
+<span class="up">
++1.83%
+</span>
+
+</div>
+
+<div class="price">
+$2,512
+</div>
+
+<span class="symbol">
+ETH
+</span>
+
+</div>
+
+
+<!-- SOL -->
+
+<div class="card">
+
+<div class="row">
+
+<div class="coin">
+
+<div class="coin-icon">
+◎
+</div>
+
+Solana
+
+</div>
+
+<span class="up">
++3.72%
+</span>
+
+</div>
+
+<div class="price">
+$153.20
+</div>
+
+<span class="symbol">
+SOL
+</span>
+
+</div>
+
+
+<!-- BNB -->
+
+<div class="card">
+
+<div class="row">
+
+<div class="coin">
+
+<div class="coin-icon">
+◈
+</div>
+
+BNB
+
+</div>
+
+<span class="down">
+-0.64%
+</span>
+
+</div>
+
+<div class="price">
+$612.40
+</div>
+
+<span class="symbol">
+BNB
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- AIRDROPS -->
+
+<section id="airdrops">
+
+<div class="wrap">
+
+<div class="head">
+
+<div>
+
+<h2>
+Airdrop Watch
+</h2>
+
+<p>
+Keep an eye on promising opportunities.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="grid3">
+
+
+<div class="card item">
+
+<span class="tag">
+Early
+</span>
+
+<h3>
+Project Alpha
+</h3>
+
+<p>
+Explore the product, complete real activity
+and follow official announcements.
+</p>
+
+</div>
+
+
+<div class="card item">
+
+<span class="tag">
+Testnet
+</span>
+
+<h3>
+Project Nova
+</h3>
+
+<p>
+Try the testnet and keep your activity genuine.
+Never share your seed phrase.
+</p>
+
+</div>
+
+
+<div class="card item">
+
+<span class="tag">
+Watchlist
+</span>
+
+<h3>
+Project Orbit
+</h3>
+
+<p>
+Watch for confirmed eligibility and official
+claim information.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NEWS -->
+
+<section id="news">
+
+<div class="wrap">
+
+<div class="head">
+
+<div>
+
+<h2>
+Crypto News
+</h2>
+
+<p>
+Short reads for the Web3 community.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="news">
+
+
+<article class="card feature">
+
+<span class="tag">
+Web3
+</span>
+
+<h3>
+Crypto is moving beyond speculation
+toward useful products.
+</h3>
+
+<p>
+Better UX, stronger communities and real-world
+utility are shaping the next wave of Web3 adoption.
+</p>
+
+</article>
+
+
+<div class="card item">
+
+<span class="tag">
+Market
+</span>
+
+<h3>
+Watch liquidity, volume and risk.
+</h3>
+
+<p>
+Market activity can change quickly.
+Always research before trading or investing.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="wrap">
+
+<div class="about">
+
+
+<div class="card">
+
+<span class="tag">
+About Rony
+</span>
+
+<h2 style="margin:8px 0 10px">
+Building and learning in Web3.
+</h2>
+
+<p>
+Rony Crypto shares simple crypto and Web3 information
+for people who want to learn, discover projects
+and find new opportunities.
+</p>
+
+</div>
+
+
+<div class="card safe">
+
+<span class="tag">
+Safety First
+</span>
+
+<h2 style="margin:8px 0 10px">
+DYOR before you act.
+</h2>
+
+<p>
+Never share your seed phrase or private key.
+Verify links through official project channels
+and understand the risks before connecting your wallet.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="wrap foot">
+
+<span>
+© 2026 Rony Crypto
+</span>
+
+<span>
+Crypto • Web3 • Airdrops
+</span>
+
+<a
+class="social"
+href="https://x.com/Rony_201000"
+target="_blank">
+
+X / @Rony_201000 ↗
+
+</a>
+
+</div>
+
+</footer>
+
+
+</body>
+</html>
