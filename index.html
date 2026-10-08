@@ -77,14 +77,52 @@ nav{
   gap:26px;
   color:#aeb8c8;
   font-size:14px;
+  align-items:center;
 }
 
 nav a:hover{
   color:#fff;
 }
 
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.login-btn{
+  background:transparent;
+  color:var(--green);
+  border:1px solid var(--green);
+  padding:8px 16px;
+  border-radius:8px;
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+
+.login-btn:hover{
+  background:var(--green);
+  color:#06100a;
+}
+
+.user-profile-badge{
+  display:none;
+  align-items:center;
+  gap:8px;
+  background:#111925;
+  border:1px solid var(--line);
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+  color:var(--green);
+  font-weight:700;
+}
+
 .menu{
   display:none;
+  cursor:pointer;
 }
 
 /* HERO */
@@ -142,6 +180,9 @@ h1{
   border-radius:10px;
   font-weight:800;
   font-size:14px;
+  cursor:pointer;
+  border:none;
+  display:inline-block;
 }
 
 .btn.alt{
@@ -360,6 +401,160 @@ section{
   border-color:#244034;
 }
 
+/* MODAL / LOGIN POPUP */
+
+.modal-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(4, 7, 12, 0.85);
+  backdrop-filter:blur(8px);
+  z-index:100;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+
+.modal-overlay.active{
+  display:flex;
+}
+
+.auth-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:32px;
+  width:100%;
+  max-width:420px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  position:relative;
+  animation:modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn{
+  from{ opacity:0; transform:scale(0.95); }
+  to{ opacity:1; transform:scale(1); }
+}
+
+.close-modal{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-size:20px;
+  cursor:pointer;
+}
+
+.close-modal:hover{
+  color:#fff;
+}
+
+.auth-tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:24px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:12px;
+}
+
+.tab-btn{
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  padding-bottom:6px;
+}
+
+.tab-btn.active{
+  color:var(--green);
+  border-bottom:2px solid var(--green);
+}
+
+.form-group{
+  margin-bottom:16px;
+}
+
+.form-group label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+  font-weight:600;
+}
+
+.form-group input{
+  width:100%;
+  background:#070a0f;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 14px;
+  color:#fff;
+  font-size:14px;
+  outline:none;
+}
+
+.form-group input:focus{
+  border-color:var(--green);
+}
+
+.form-submit{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+}
+
+.auth-divider{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin:20px 0;
+  position:relative;
+}
+
+.auth-divider::before, .auth-divider::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  width:40%;
+  height:1px;
+  background:var(--line);
+}
+
+.auth-divider::before{ left:0; }
+.auth-divider::after{ right:0; }
+
+.social-auth{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.social-btn{
+  background:#111925;
+  border:1px solid var(--line);
+  color:#fff;
+  padding:10px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.social-btn:hover{
+  background:#172232;
+}
+
 /* FOOTER */
 
 footer{
@@ -452,7 +647,13 @@ footer{
       <a href="#about">About</a>
     </nav>
 
-    <div class="menu">☰</div>
+    <div class="nav-right">
+      <button class="login-btn" id="openAuthModal">Login / Sign Up</button>
+      <div class="user-profile-badge" id="userBadge">
+        <span>👤 User</span>
+      </div>
+      <div class="menu">☰</div>
+    </div>
 
   </div>
 </header>
@@ -554,7 +755,7 @@ Market
 </h2>
 
 <p>
-Demo prices — connect a market API for live data.
+Live demo market prices for top cryptocurrencies.
 </p>
 
 </div>
@@ -916,6 +1117,65 @@ and understand the risks before connecting your wallet.
 
 </main>
 
+<!-- LOGIN / SIGNUP MODAL -->
+
+<div class="modal-overlay" id="authModal">
+  <div class="auth-card">
+    <button class="close-modal" id="closeAuthModal">✕</button>
+    
+    <div class="auth-tabs">
+      <button class="tab-btn active" id="loginTab">Login</button>
+      <button class="tab-btn" id="signupTab">Sign Up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" onsubmit="handleAuth(event, 'login')">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="rony@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn form-submit">Login to Account</button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" style="display:none;" onsubmit="handleAuth(event, 'signup')">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="Rony Ahammed" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="rony@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn form-submit">Create Account</button>
+    </form>
+
+    <div class="auth-divider">OR</div>
+
+    <div class="social-auth">
+      <button class="social-btn" onclick="demoSocialLogin('Google')">
+        <span>🌐</span> Continue with Google
+      </button>
+      <button class="social-btn" onclick="demoSocialLogin('Web3 Wallet')">
+        <span>🦊</span> Connect Web3 Wallet
+      </button>
+    </div>
+  </div>
+</div>
+
 
 <!-- FOOTER -->
 
@@ -944,6 +1204,57 @@ X / @Rony_201000 ↗
 
 </footer>
 
+<script>
+// Modal Toggle Logic
+const modal = document.getElementById('authModal');
+const openBtn = document.getElementById('openAuthModal');
+const closeBtn = document.getElementById('closeAuthModal');
+
+const loginTab = document.getElementById('loginTab');
+const signupTab = document.getElementById('signupTab');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+
+const userBadge = document.getElementById('userBadge');
+
+openBtn.onclick = () => modal.classList.add('active');
+closeBtn.onclick = () => modal.classList.remove('active');
+
+window.onclick = (e) => {
+  if(e.target === modal) modal.classList.remove('active');
+}
+
+// Tab Switching
+loginTab.onclick = () => {
+  loginTab.classList.add('active');
+  signupTab.classList.remove('active');
+  loginForm.style.display = 'block';
+  signupForm.style.display = 'none';
+}
+
+signupTab.onclick = () => {
+  signupTab.classList.add('active');
+  loginTab.classList.remove('active');
+  signupForm.style.display = 'block';
+  loginForm.style.display = 'none';
+}
+
+// Demo Submit
+function handleAuth(e, type){
+  e.preventDefault();
+  modal.classList.remove('active');
+  openBtn.style.display = 'none';
+  userBadge.style.display = 'flex';
+  alert(`${type === 'login' ? 'Login' : 'Account creation'} successful!`);
+}
+
+function demoSocialLogin(provider){
+  modal.classList.remove('active');
+  openBtn.style.display = 'none';
+  userBadge.style.display = 'flex';
+  alert(`Connected successfully via ${provider}!`);
+}
+</script>
 
 </body>
 </html>
